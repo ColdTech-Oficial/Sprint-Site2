@@ -1,0 +1,165 @@
+body{
+    margin: 0 ;
+    font-family:'Montserrat', sans-serif;
+    background-color: rgb(233, 233, 233);
+    font-size: 3vh;
+    background-color: #16859e;
+}
+.corpo{
+    padding: 3%;
+    
+}
+.nome{
+    margin-top: 2vw;
+    display: flex;
+}
+.div_lados{
+    flex-direction: row;
+    display: flex;
+    
+}
+.caculadora{
+    
+    height: 90vh;
+    width: 22vw;
+    background-color: rgb(255, 255, 255);
+    border: 0;
+    border-radius: 1vw;    
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1vh 0.5vh 8px rgb(100, 100, 100);
+}
+.div_respostas{
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    
+}
+.div_button{
+   
+    justify-content: center;
+    display: flex;
+    
+}
+.ipt{
+    margin-top: 15vh;
+    width: 15vw;
+    height: 2vw;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-color: black;
+    background-color: transparent;
+}
+.div_button{
+    margin-top: 20vh;
+}
+.bt{
+    width: 15vw;
+    height: 2.5vw;
+    border-radius: 1vw;
+    border: 0;
+    background: #ffffff;
+    background: -webkit-linear-gradient(right, #21d4fd, #000000, #21d4fd, #09023a);
+    background: -o-linear-gradient(right, #21d4fd, #3a3a3a, #21d4fd, #09023a);
+    background: -moz-linear-gradient(right, #21d4fd, #060427, #21d4fd, #21e5ff);
+    background: linear-gradient(right, #21d4fd, #3a3a3a, #21d4fd, #353535);
+    color: white;
+   cursor: pointer;
+}
+.bt:hover{
+    background: -webkit-linear-gradient(right, #16859e, #000000, #16859e, #09023a);
+    background: -o-linear-gradient(right, #16859e, #3a3a3a, #16859e, #09023a);
+    background: -moz-linear-gradient(right, #16859e, #060427, #16859e, #16859e);
+    background: linear-gradient(right, #16859e, #3a3a3a, #16859e, #353535);
+}
+
+
+
+.combosCaixa{
+
+    width: 65vw;
+    height: 30vh;
+    margin-left: 5vw;
+    align-items: center;
+}
+.grafico{
+    background-color: white;
+    width: 65vw;
+    height: 38vh;
+    margin-left: 5vw;
+    border-radius: 1vh; 
+    margin-top: 22vh;
+    box-shadow: 1vh 0.5vh 8px rgb(100, 100, 100);
+}
+.parte{
+    flex-direction: column;
+    display: flex;
+}
+.combo1{
+    background-color: white;
+    width: 30vw;
+    height: 22vh;
+    box-shadow: 22vh 20 vw;
+    border-radius: 1vh;
+    box-shadow: 1vh 0.5vh 8px rgb(100, 100, 100);
+}
+.combo2{
+    background-color:white;
+    width: 30vw;
+    height: 22vh;
+    border-radius: 1vh;
+    box-shadow: 1vh 0.5vh 8px rgb(100, 100, 100);
+    z-index: 20px;
+}
+.combo3{
+    background-color: white;
+    width: 30vw;
+    height: 22vh;
+    border-radius: 1vh;
+    box-shadow: 1vh 0.5vh 8px rgb(100, 100, 100);
+}
+.combo4{
+    background-color: white;
+    width: 30vw;
+    height: 22vh;
+    border-radius: 1vh; 
+    box-shadow: 1vh 0.5vh 8px rgb(100, 100, 100);
+}
+.filha_caixa{
+    justify-content: space-evenly 26vw;
+    display: flex;
+   
+}
+
+.combo2{
+    margin-top: 5vh;
+}
+
+.neta2{
+    margin-left: 5vw;
+}
+.combo4{
+    margin-top: 5vh;
+}
+#texto1{
+    font-size: large;
+    
+}
+#texto2{
+    font-size: large;
+    
+}
+#texto3{
+    font-size: large;
+  
+}
+#texto4{
+    font-size: large;
+   
+}
+
+
+

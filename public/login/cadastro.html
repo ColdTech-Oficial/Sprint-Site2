@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>cadastro</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="../js/funcoes.js">
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form >
+					<span class="login100-form-title p-b-26">
+						Cadastre-se 
+					</span>
+					<span class="login100-form-title p-b-48">
+					</span>
+
+					
+					<div class="wrap-input100">
+						<input class="input100" type="text" id="ipt_empresa" placeholder="Nome da Empresa:">
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" id="ipt_cnpj" placeholder="CNPJ:">
+					</div>
+
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" id="ipt_email" placeholder="Email: ">
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" id="ipt_telefone" placeholder="Telefone: ">
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" id="ipt_cep" placeholder="CEP:">
+					</div>
+
+					<div class="wrap-input100 ">
+						<input class="input100" type="text" id="ipt_numero" placeholder="Número: ">
+					</div>
+
+
+					<div class="wrap-input100">
+						<input class="input100" type="password" id="ipt_senha" placeholder="Senha: ">
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							
+							<button  class="login100-form-btn">
+								<a style="color: white;" onclick="cadastrar()">Cadastrar</a>
+							</button>
+							<div id="div_aguardar" class="loading-div">
+								<img src="../assets/circle-loading.gif" id="loading-gif">
+							</div>
+						</div>
+					</div>
+
+					<div class="text-center p-t-115">
+						<span class="txt1">
+							Já possui uma conta? 
+						</span>
+
+						<a class="txt2" href="login.html">
+							Logar
+						</a>
+
+						<div id="div_erros_login">
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
+
+<script>
+    function cadastrar() {
+		aguardar()
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+		var nomeEmpresaVar = ipt_empresa.value;
+		var cnpjVar = ipt_cnpj.value;
+		var emailVar = ipt_email.value;
+		var telefoneVar = ipt_telefone.value;
+		var cepVar = ipt_cep.value;
+		var numeroVar = ipt_numero.value;
+		var senhaVar = ipt_senha.value;
+
+        if (nomeEmpresaVar == "" || cnpjVar == "" || emailVar == "" || telefoneVar == "" || cepVar == "" || numeroVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Preencha todos os campos para prosseguir!";
+
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Ops, e-mail inválido! Verifique e tente novamente.";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        if (senhaVar != confirmacaoSenhaVar) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "As senhas inseridas devem ser iguais para prosseguir!";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+				nomeEmpresaServer: nomeEmpresaVar,
+				cnpjServer: cnpjVar,
+				emailServer: emailVar,
+				telefoneServer: telefoneVar,
+				cepServer: cepVar,
+				numeroServer: numeroVar,
+				senhaServer: senhaVar 
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                cardErro.style.display = "block"
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+                window.location = "login.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>

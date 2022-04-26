@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ColdTechnology | Cadastro</title>
+
+
+    <script src="./js/funcoes.js"></script>
+
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="limitarDiv">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="corContainer">
+                
+                <h2 class="tituloLogin">Faça login!</h2>
+                <div class="formulario">
+
+
+                    <span class="titulosContainer">Nome da Empresa</span>
+                    <input id="ipt_nomeEmpresa" type="text" placeholder="Nome da Empresa: ">
+
+                    <span class="titulosContainer">CPNJ:</span>
+                    <input id="ipt_cnpj" type="txt" placeholder="Digite o CPNJ: ">
+
+                    <span class="titulosContainer">Email:</span>
+                    <input id="ipt_email" type="txt" placeholder="Digite o Email: ">
+
+                    <span class="titulosContainer">Telefone:</span>
+                    <input id="ipt_telefone" type="txt" placeholder="Digite o Telefone: ">
+
+                    <span class="titulosContainer">Cep:</span>
+                    <input id="ipt_cep" type="txt" placeholder="Digite o Cep: ">
+
+                    <span class="titulosContainer">Numero:</span>
+                    <input id="ipt_numero" type="txt" placeholder="Digite o Numero: ">
+
+                    <span class="titulosContainer">Senha:</span>
+                    <input id="ipt_senha" type="txt" placeholder="Digite a senha: ">
+
+                    <button class="btn" onclick="cadastrar()">Cadastrar</button>
+
+
+                </div>
+                
+                <div class="text-centro">
+                    <span class="txtCadastroLogin">
+                        Já possui uma conta? 
+                    </span>
+
+                    <a class="txtCadastroLogin2" href="login.html">
+                        Logar
+                    </a>
+
+                <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                </div>
+
+                <div id="div_erros_login">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function cadastrar() {
+        aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeEmpresaVar = ipt_nomeEmpresa.value;
+        var cnpjVar = ipt_cnpj.value;
+        var emailVar = ipt_email.value;
+        var telefoneVar = ipt_telefone.value;
+        var cepVar = ipt_cep.value;
+        var numeroVar = ipt_numero.value;
+        var senhaVar = ipt_senha.value;
+
+
+        if (nomeEmpresaVar == "" || cnpjVar == "" || emailVar == "" || telefoneVar == "" || cepVar == "" || numeroVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Preencha todos os campos para prosseguir!";
+
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Ops, e-mail inválido! Verifique e tente novamente.";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeEmpresServer: nomeEmpresaVar,
+                cnpjServer: cnpjVar, 
+                emailServer: emailVar,
+                telefoneServer: telefoneVar,
+                cepServer: cepVar,
+                numeroServer: numeroVar,
+                senhaServer: senhaVar
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                cardErro.style.display = "block"
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+                window.location = "login.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>
